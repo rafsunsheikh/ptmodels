@@ -1,35 +1,45 @@
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import models, layers
+from sklearn.metrics import precision_score, accuracy_score, recall_score, f1_score, confusion_matrix
+from keras import callbacks
+from keras import optimizers
+from keras.datasets import cifar10
+from keras import layers
+from keras.layers import Dropout, Flatten, Dense, GlobalAveragePooling2D,BatchNormalization
+from keras import Model
+import gc
+
 class PreTrainedModels:
 
-    histories = []
+    def __init__(self, 
+                 NUM_CLASSES=2,
+                 BATCH_SIZE = 32, 
+                 EPOCHS = 1, 
+                 LEARNING_RATE=1e-4, 
+                 MOMENTUM=0.9):
+        self.NUM_CLASSES = NUM_CLASSES
+        self.BATCH_SIZE = BATCH_SIZE
+        self.EPOCHS = EPOCHS
+        self.LEARNING_RATE = LEARNING_RATE
+        self.MOMENTUM = MOMENTUM
+        self.histories = []
+        # Evaluation Matrices for Training Dataset
+        self.accuracies_train = []
+        self.precisions_train = []
+        self.recalls_train = []
+        self.f1_scores_train = []
+        # Evaluation Matrices for Testing Dataset
+        self.accuracies_test = []
+        self.precisions_test = []
+        self.recalls_test = []
+        self.f1_scores_test = []
 
-    # Evaluation Matrices for Training Dataset
-    accuracies_train = []
-    precisions_train = []
-    recalls_train = []
-    f1_scores_train = []
 
-    # Evaluation Matrices for Testing Dataset
-    accuracies_test = []
-    precisions_test = []
-    recalls_test = []
-    f1_scores_test = []
-
-
-    def load(x_train, y_train, x_test, y_test, NUM_CLASSES=2,BATCH_SIZE = 32, EPOCHS = 1, LEARNING_RATE=1e-4, MOMENTUM=0.9):
-        import numpy as np
-        import pandas as pd
-        import tensorflow as tf
-        from tensorflow import keras
-        from tensorflow.keras import models, layers
-        from sklearn.metrics import precision_score, accuracy_score, recall_score, f1_score, confusion_matrix
-        from keras import callbacks
-        from keras import optimizers
-        from keras.datasets import cifar10
-        from keras import layers
-        from keras.layers import Dropout, Flatten, Dense, GlobalAveragePooling2D,BatchNormalization
-        from keras import Model
-        import gc
-
+    def fit(self, x_train, y_train, x_test, y_test):
+        
 
         # base_model_Xception = tf.keras.applications.Xception(weights='imagenet', include_top=False, input_shape=(height, width, channel)) ->at least 71x71
         base_model_VGG16 = tf.keras.applications.VGG16(weights='imagenet', include_top=False, input_shape=(height, width, channel))
@@ -145,20 +155,20 @@ class PreTrainedModels:
             x = Dense(256, activation='relu')(x)
             x = Dense(256, activation='relu')(x)
             x = Dropout(0.6)(x)
-            predictions = Dense(NUM_CLASSES, activation='softmax')(x)
+            predictions = Dense(self.NUM_CLASSES, activation='softmax')(x)
 
             # Create a MirroredStrategy for multiple GPU processing
             strategy = tf.distribute.MirroredStrategy()
             # Open a strategy scope.
             with strategy.scope():
                 model = Model(base_model.input, predictions)
-                model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=LEARNING_RATE), metrices=['accuracy'])
+                model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE), metrices=['accuracy'])
 
             callbacks = [
                 keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras")
             ]
             
-            history = model.fit(x_train, y_train, epochs = EPOCHS, callbacks = callbacks, batch_size=BATCH_SIZE)
+            history = model.fit(x_train, y_train, epochs = self.EPOCHS, callbacks = callbacks, batch_size=self.BATCH_SIZE)
             gc.collect()
             self.histories.append(history)
 
@@ -186,16 +196,16 @@ class PreTrainedModels:
             y_test_pred = np.argmax(y_test_pred, axis=1)
             y_test_original = np.argmax(y_test, axis=1)
 
-            self.acc_test=format(accuracy_score(y_test_pred, y_test_original),'.3f')
-            self.precision_test=format(precision_score(y_test_original, y_test_pred, average='micro'),'.3f')
-            self.recall_test=format(recall_score(y_test_original, y_test_pred, average='micro'),'.3f')
-            self.f1_test=format(f1_score(y_test_original, y_test_pred, average='micro'),'.3f')
+            acc_test=format(accuracy_score(y_test_pred, y_test_original),'.3f')
+            precision_test=format(precision_score(y_test_original, y_test_pred, average='micro'),'.3f')
+            recall_test=format(recall_score(y_test_original, y_test_pred, average='micro'),'.3f')
+            f1_test=format(f1_score(y_test_original, y_test_pred, average='micro'),'.3f')
             
             #Append the testing evaluation values in to lists
-            accuracies_test.append(acc_test)
-            precisions_test.append(precision_test)
-            recalls_test.append(recall_test)
-            f1_scores_test.append(f1_test)
+            self.accuracies_test.append(acc_test)
+            self.precisions_test.append(precision_test)
+            self.recalls_test.append(recall_test)
+            self.f1_scores_test.append(f1_test)
             gc.collect()
 
             print("appended successfully")
@@ -203,7 +213,7 @@ class PreTrainedModels:
             gc.collect()
 
         
-        df = pd.DataFrame(list(zip(base_models_name, accuracies_train, precisions_train, recalls_train, f1_scores_train, accuracies_test, precisions_test, recalls_test, f1_scores_test)),
+        df = pd.DataFrame(list(zip(base_models_name, self.accuracies_train, self.precisions_train, self.recalls_train, self.f1_scores_train, self.accuracies_test, self.precisions_test, self.recalls_test, self.f1_scores_test)),
                columns =["Models","Accuracy train", "Precision train", "Recall train", "f1_score train", "Accuracy test", "Precision test", "Recall test", "f1_score test"])
         
         df.to_csv("Predictions.csv")
