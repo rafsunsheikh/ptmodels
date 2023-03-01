@@ -158,9 +158,7 @@ class PreTrainedModels:
 
             
             model = Model(base_model.input, predictions)
-            model.compile(loss='binary_crossentropy',
-              optimizer=optimizers.Adam(learning_rate=LEARNING_RATE),
-              metrics=['accuracy'])
+            model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE), metrics=['accuracy'])
 
             callbacks = [
                 keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras")
