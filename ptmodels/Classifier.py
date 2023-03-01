@@ -217,7 +217,7 @@ class PreTrainedModels:
                columns =["Models","Accuracy train", "Precision train", "Recall train", "f1_score train", "Accuracy test", "Precision test", "Recall test", "f1_score test"])
         
         df.to_csv("Predictions.csv")
-        df
+        return df
 
 
 
