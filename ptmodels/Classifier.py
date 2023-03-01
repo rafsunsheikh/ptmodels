@@ -156,8 +156,9 @@ class PreTrainedModels:
             x = Dropout(0.6)(x)
             predictions = Dense(self.NUM_CLASSES, activation='softmax')(x)
 
+            
             model = Model(base_model.input, predictions)
-            model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE))
+            model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE), metrices=['accuracy'])
 
             callbacks = [
                 keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras")
