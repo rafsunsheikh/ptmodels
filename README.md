@@ -287,7 +287,7 @@ This software uses the following open source packages:
 
 <p>Or</p> 
 
-<a href="patreon.com/LevDropStudio">
+<a href="https://www.patreon.com/LevDropStudio">
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
