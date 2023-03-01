@@ -67,6 +67,7 @@ print(df)
 > EPOCHS = 1
 > LEARNING_RATE = 1e-4
 > MOMENTUM = 0.9 	
+- You can also consuly my [Google Colab Notebook](https://colab.research.google.com/drive/19BJ0LAQrqTEZiMqRAXZDZH5dhgwQeRI_?usp=sharing)
 
 
 ## Classification
