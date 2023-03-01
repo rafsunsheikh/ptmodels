@@ -32,38 +32,24 @@
   <a href="#license">License</a>
 </p>
 
+![screenshot](https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/evaluation_01.png)
 
 ## Installation
-![screenshot](https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/evaluation_01.png)
+
 
 * Install ptmodels by simply using the snippet into the terminal
 ```bash
 pip install ptmodels
 ```
 ## How To Use
-
-To clone and run this application, use git clone on your computer. From your command line:
-
-```bash
-# Clone this repository
-$ git clone https://github.com/rafsunsheikh/ptmodels
-
-# Go into the repository
-$ cd ptmodels
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
+- Open up Kaggle Notebook or Google Colab.
+- Choose runtime with GPU support. (as the models are very large, it will be difficult to run it on your local machine and also without GPU.)
+- Install ptmodels in one cell.
 ```
-
-> **Note**
-> If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
-
-
-## Classification
-![screenshot](https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/evaluation_02.png)
+!pip install ptmodels
+```
+- Run the cell by pressing shift + enter
+- In another cell run the following.
 
 ```bash
 from ptmodels.Classifier import PreTrainedModels
@@ -73,8 +59,20 @@ from tensorflow.keras.datasets import cifar10
 model = PreTrainedModels(NUM_CLASSES=10, BATCH_SIZE=32, EPOCHS=2, LEARNING_RATE=0.001, MOMENTUM=0.9)
 df = model.fit(x_train, y_train, x_test, y_test)
 print(df)
+```
+- You can initialize the PreTrainedModels class without any arguments.
+- Default values for the parameters are:
+> NUM_CLASSES = 2
+> BATCH_SIZE  = 32
+> EPOCHS = 1
+> LEARNING_RATE = 1e-4
+> MOMENTUM = 0.9 	
 
 
+## Classification
+![screenshot](https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/evaluation_02.png)
+
+```bash
 
 Starting Training: VGG16
 1563/1563 [==============================] - 24s 10ms/step - loss: 0.2274 - accuracy: 0.5063
