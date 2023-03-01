@@ -156,12 +156,8 @@ class PreTrainedModels:
             x = Dropout(0.6)(x)
             predictions = Dense(self.NUM_CLASSES, activation='softmax')(x)
 
-            # Create a MirroredStrategy for multiple GPU processing
-            strategy = tf.distribute.MirroredStrategy()
-            # Open a strategy scope.
-            with strategy.scope():
-                model = Model(base_model.input, predictions)
-                model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE))
+            model = Model(base_model.input, predictions)
+            model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE))
 
             callbacks = [
                 keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras")
