@@ -293,8 +293,10 @@ This software uses the following open source packages:
 
 ## You may also like...
 
-- [Pomolectron](https://github.com/amitmerchant1990/pomolectron) - A pomodoro app
-- [Correo](https://github.com/amitmerchant1990/correo) - A menubar/taskbar Gmail App for Windows and macOS
+- [Signature Fraud Detection](https://github.com/rafsunsheikh/signatureFraud) - A Django app to detect signature fraud from Bank checks.
+- [AIST](https://github.com/rafsunsheikh/IDP_AIST) - Artificial Intelligence Surveillance Tower
+- [Parliament Bhaban](https://github.com/rafsunsheikh/openGL_project) - A fun OpenGL project for 2D animation.
+- [Mancala](https://github.com/rafsunsheikh/mancala_repo) - A simple AI Mancala game built in Python
 
 ## License
 
