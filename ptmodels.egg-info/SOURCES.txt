@@ -1,6 +1,5 @@
 LICENSE.txt
 README.md
-setup
 setup.cfg
 setup.py
 ptmodels/Classifier.py
