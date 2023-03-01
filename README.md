@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://rafsunsheikh.github.io/Web"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
+  <a href="https://rafsunsheikh.github.io/Web"><img src="https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/logo_hi.png" alt="ptmodels" width="200"></a>
   <br>
   ptmodels
   <br>
