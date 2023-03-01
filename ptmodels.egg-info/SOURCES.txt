@@ -1,7 +1,9 @@
-LICENSE
+LICENSE.txt
 README.md
 setup
+setup.cfg
 setup.py
+ptmodels/Classifier.py
 ptmodels.egg-info/PKG-INFO
 ptmodels.egg-info/SOURCES.txt
 ptmodels.egg-info/dependency_links.txt
