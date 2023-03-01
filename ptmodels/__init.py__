@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+
+"""Top-level package for ptmodels."""
+
+__author__ = """MD Rafsun Sheikh"""
+__email__ = "201614123@student.mist.ac.bd"
+__version__ = '0.1'
