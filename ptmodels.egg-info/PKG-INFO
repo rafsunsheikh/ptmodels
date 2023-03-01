@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: ptmodels
+Version: 0.1
+Summary: ptmodels uses pre-trained models to evaluate image datasets and helps to understand which model works
+Home-page: https://github.com/rafsunsheikh/ptmodels
+Author: MD Rafsun Sheikh
+Author-email: 201614123@student.mist.ac.bd
+Classifier: Programming Language :: Python :: 3.1
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# ptmodels
+
+from ptmodels.Classifier import PreTrainedModels

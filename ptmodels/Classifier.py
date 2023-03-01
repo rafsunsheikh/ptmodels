@@ -40,7 +40,9 @@ class PreTrainedModels:
 
     def fit(self, x_train, y_train, x_test, y_test):
         
-
+        height = x_train.shape[1]
+        width = x_train.shape[2]
+        channel = x_train.shape[3]
         # base_model_Xception = tf.keras.applications.Xception(weights='imagenet', include_top=False, input_shape=(height, width, channel)) ->at least 71x71
         base_model_VGG16 = tf.keras.applications.VGG16(weights='imagenet', include_top=False, input_shape=(height, width, channel))
         base_model_VGG19 = tf.keras.applications.VGG19(weights='imagenet', include_top=False, input_shape=(height, width, channel))
@@ -80,9 +82,6 @@ class PreTrainedModels:
         base_model_ConvNeXtLarge = tf.keras.applications.ConvNeXtLarge(weights='imagenet', include_top=False, input_shape=(height, width, channel))
         base_model_ConvNeXtXLarge = tf.keras.applications.ConvNeXtXLarge(weights='imagenet', include_top=False, input_shape=(height, width, channel))
 
-        height = x_train.shape[1]
-        width = x_train.shape[2]
-        channel = x_train.shape[3]
 
         y_train = tf.keras.utils.to_categorical(y_train)
         y_test = tf.keras.utils.to_categorical(y_test)
