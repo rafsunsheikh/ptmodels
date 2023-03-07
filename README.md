@@ -24,6 +24,7 @@
 </p>
 
 <p align="center">
+  <a href="#table-of-content">Table of Contents</a> •
   <a href="#installation">Installation</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#classification">Classification</a> •
