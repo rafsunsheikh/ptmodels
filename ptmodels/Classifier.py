@@ -244,6 +244,9 @@ class PreTrainedModels:
             if MODEL_NAME == self.base_models_name[i]:
                 index = i
 
+        y_train = tf.keras.utils.to_categorical(y_train)
+        y_test = tf.keras.utils.to_categorical(y_test)
+
         base_model = self.base_models[index]
 
         for layer in base_model.layers:
