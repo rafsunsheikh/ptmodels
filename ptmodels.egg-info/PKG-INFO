@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
 Name: ptmodels
-Version: 0.0.11
+Version: 0.1.0
 Summary: Pre-trained models image classifier
 Home-page: https://github.com/rafsunsheikh/ptmodels
-Download-URL: https://github.com/rafsunsheikh/ptmodels/archive/refs/tags/0.0.11.tar.gz
+Download-URL: https://github.com/rafsunsheikh/ptmodels/archive/refs/tags/0.1.0.tar.gz
 Author: MD Rafsun sheikh
 Author-email: 201614123@student.mist.ac.bd
 License: MIT
