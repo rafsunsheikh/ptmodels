@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://rafsunsheikh.github.io/Web"><img src="https://github.com/rafsunsheikh/ptmodels/raw/master/image_sources/logo_hi.png" alt="ptmodels" width="200"></a>
+  <a href="https://rafsunsheikh.github.io/Web"><img src="https://raw.githubusercontent.com/rafsunsheikh/ptmodels/master/image_sources/logo_hi.png" alt="ptmodels" width="200"></a>
   <br>
   ptmodels
   <br>
@@ -33,7 +33,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://github.com/rafsunsheikh/ptmodels/raw/master/image_sources/evaluation_01.png)
+![screenshot](https://raw.githubusercontent.com/rafsunsheikh/ptmodels/master/image_sources/evaluation_01.png)
 
 
 ## Table of Contents
@@ -319,7 +319,7 @@ print(names)
 dataframe = model.fit(x_train, y_train, x_test, y_test)
 ```
 - This method also saves your return dataframe into `prediction.csv` file in your disk.
-![screenshot](https://github.com/rafsunsheikh/ptmodels/raw/master/image_sources/evaluation_02.png)
+![screenshot](https://raw.githubusercontent.com/rafsunsheikh/ptmodels/master/image_sources/evaluation_02.png)
 ##### Output:
 ```bash
 
