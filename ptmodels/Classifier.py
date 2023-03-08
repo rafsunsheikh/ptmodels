@@ -68,12 +68,14 @@ class PreTrainedModels:
                                 "ConvNeXtLarge", 
                                 "ConvNeXtXLarge"
                                 ]
-
-    def fit(self, x_train, y_train, x_test, y_test):
+   
+   
+    def load_models(self, x_train):
         
         height = x_train.shape[1]
         width = x_train.shape[2]
         channel = x_train.shape[3]
+
         # base_model_Xception = tf.keras.applications.Xception(weights='imagenet', include_top=False, input_shape=(height, width, channel)) ->at least 71x71
         base_model_VGG16 = tf.keras.applications.VGG16(weights='imagenet', include_top=False, input_shape=(height, width, channel))
         base_model_VGG19 = tf.keras.applications.VGG19(weights='imagenet', include_top=False, input_shape=(height, width, channel))
@@ -113,10 +115,6 @@ class PreTrainedModels:
         base_model_ConvNeXtLarge = tf.keras.applications.ConvNeXtLarge(weights='imagenet', include_top=False, input_shape=(height, width, channel))
         base_model_ConvNeXtXLarge = tf.keras.applications.ConvNeXtXLarge(weights='imagenet', include_top=False, input_shape=(height, width, channel))
 
-
-        y_train = tf.keras.utils.to_categorical(y_train)
-        y_test = tf.keras.utils.to_categorical(y_test)
-
         base_models = [base_model_VGG16, 
                base_model_VGG19, 
                base_model_ResNet50, 
@@ -141,7 +139,6 @@ class PreTrainedModels:
                base_model_ConvNeXtLarge, 
                base_model_ConvNeXtXLarge
               ]
-        
 
         gc.collect()
 
@@ -149,13 +146,24 @@ class PreTrainedModels:
         for base_model in base_models:
             self.base_models.append(base_model)
 
+        print("Models loaded successfully!")
+
+
+
+
+
+    def fit(self, x_train, y_train, x_test, y_test):
+        
+        y_train = tf.keras.utils.to_categorical(y_train)
+        y_test = tf.keras.utils.to_categorical(y_test)
+
         # Make the already trained layers untrainable
-        for base_model in base_models:
+        for base_model in self.base_models:
             for layer in base_model.layers:
                 layer.trainable = False
 
         count = 0
-        for base_model in base_models:
+        for base_model in self.base_models:
             print("Starting Training:", self.base_models_name[count])
             count += 1
 
@@ -232,16 +240,17 @@ class PreTrainedModels:
         return models
 
     def train_specific_model(self, 
-                 NUM_CLASSES,
-                 BATCH_SIZE, 
-                 EPOCHS, 
-                 LEARNING_RATE, 
-                 MOMENTUM, MODEL_NAME, 
                  x_train, y_train,
-                 x_test, y_test, SAVE_MODEL = False):
+                 x_test, y_test, 
+                 model_name,
+                 num_classes=10,
+                 batch_size=32, 
+                 epochs=20, 
+                 learning_rate=1e-4, 
+                 momentum=0.9, SAVE_MODEL = False):
         index = None
         for i in range(len(self.base_models_name)):
-            if MODEL_NAME == self.base_models_name[i]:
+            if model_name == self.base_models_name[i]:
                 index = i
 
         y_train = tf.keras.utils.to_categorical(y_train)
@@ -258,17 +267,17 @@ class PreTrainedModels:
         x = Dense(256, activation='relu')(x)
         x = Dense(256, activation='relu')(x)
         x = Dropout(0.6)(x)
-        predictions = Dense(self.NUM_CLASSES, activation='softmax')(x)
+        predictions = Dense(num_classes, activation='softmax')(x)
 
         
         model = Model(base_model.input, predictions)
-        model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=self.LEARNING_RATE), metrics=['accuracy'])
+        model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(learning_rate=learning_rate), metrics=['accuracy'])
 
         callbacks = [
             keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras")
         ]
         
-        history = model.fit(x_train, y_train, epochs = self.EPOCHS, callbacks = callbacks, batch_size=self.BATCH_SIZE)
+        history = model.fit(x_train, y_train, epochs = epochs, callbacks = callbacks, batch_size=batch_size)
         gc.collect()
 
         if SAVE_MODEL:
@@ -290,15 +299,9 @@ class PreTrainedModels:
         recall_train=format(recall_score(y_train_original, y_pred, average='micro'),'.3f')
         f1_train=format(f1_score(y_train_original, y_pred, average='micro'),'.3f')
             
-            #Append the training evaluation values in to lists
-        self.accuracies_train.append(acc_train)
-        self.precisions_train.append(precision_train)
-        self.recalls_train.append(recall_train)
-        self.f1_scores_train.append(f1_train)
-
         gc.collect()
             
-            # Model Performance for test Dataset
+        # Model Performance for test Dataset
         y_test_pred = model.predict(x_test)
         y_test_pred = np.argmax(y_test_pred, axis=1)
         y_test_original = np.argmax(y_test, axis=1)
@@ -308,25 +311,19 @@ class PreTrainedModels:
         recall_test=format(recall_score(y_test_original, y_test_pred, average='micro'),'.3f')
         f1_test=format(f1_score(y_test_original, y_test_pred, average='micro'),'.3f')
             
-            #Append the testing evaluation values in to lists
-        self.accuracies_test.append(acc_test)
-        self.precisions_test.append(precision_test)
-        self.recalls_test.append(recall_test)
-        self.f1_scores_test.append(f1_test)
-        gc.collect()
-
-        print("appended successfully")
-        print("")
         gc.collect()
 
         
-        df = pd.DataFrame(list(zip(MODEL_NAME, self.accuracies_train, self.precisions_train, self.recalls_train, self.f1_scores_train, self.accuracies_test, self.precisions_test, self.recalls_test, self.f1_scores_test)),
+        df = pd.DataFrame(list(zip(model_name, acc_train, precision_train, recall_train, f1_train, acc_test, precision_test, recall_test, f1_test)),
                columns =["Model","Accuracy train", "Precision train", "Recall train", "f1_score train", "Accuracy test", "Precision test", "Recall test", "f1_score test"])
         
-        df.to_csv("Predictions.csv")
+        df.to_csv("Prediction_specific.csv")
         return df
         
     def evaluate_saved_model(self, x_test, y_test):
+
+        y_test = tf.keras.utils.to_categorical(y_test)
+
         # load json and create model
         json_file = open('model.json', 'r')
         loaded_model_json = json_file.read()
@@ -341,9 +338,11 @@ class PreTrainedModels:
         score = loaded_model.evaluate(x_test, y_test, verbose=0)
         print("%s: %.2f%%" % (loaded_model.metrics_names[1], score[1]*100))
 
-    def predict_image_saved_model(self, image_path, image_width, image_height):
-        img = image.load_img(image_path, target_size = (image_width, image_height))
-        img = image.img_to_array(img)
+    def predict_image_saved_model(self, image_path):
+        image_width=32
+        image_height=32
+        img = tf.keras.utils.load_img(image_path, target_size = (image_width, image_height))
+        img = tf.keras.utils.img_to_array(img)
         img = np.expand_dims(img, axis = 0)
 
         # load json and create model
@@ -355,26 +354,5 @@ class PreTrainedModels:
         loaded_model.load_weights("model.h5")
         print("Loaded model from disk")
 
-        loaded_model.predict(img)
-        
-# Get the names of the models
-# model = PreTrainedModels()
-# names = []
-# names = model.models_name()
-# print(names)
-
-# Train the model using a single base model
-# Note: Saving models requires that you have the h5py library installed. It is usually installed as a dependency with TensorFlow. You can also install it easily as follows:
-# sudo pip install h5py
-# model = PreTrainedModels()
-# df = model.train_specific_model(NUM_CLASSES, BATCH_SIZE, EPOCHS, LEARNING_RATE, MOMENTUM, MODEL_NAME, x_train, y_train, x_test, y_test, SAVE_MODEL)
-
-# Load saved model and Evaluate
-# model = PreTrainedModels()
-# model.evaluate_saved_model(x_test, y_test)
-
-# Predict single image using saved model
-# model = PreTrainedModels()
-# model.predict_image_saved_model(self, image_path, image_width, image_height)
-
-
+        prediction = loaded_model.predict(img)
+        return prediction
