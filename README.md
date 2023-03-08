@@ -57,26 +57,28 @@
         - [predict_image_saved_model() Method](##predict-image-saved-model-method)
 - [Credits](#credits)
 - [Related](##related)
+- [Support](##support)
+- [You May Also Like](##you-may-also-like)
 - [License](##license)
 
 
 
 ## Why must you document your project? <a name = "why_document"></a>
 
-## Installation
+## Installation <a name = "installation"></a>
 
-### Stable Release
+### Stable Release <a name = "stable-release"></a>
 * Install ptmodels by using `pip install` into the terminal
 ```bash
 pip install ptmodels
 ```
 
-### From Sources
+### From Sources <a name = "from-sources"></a>
 
 
-## How To Use
+## How To Use <a name = "how-to-use"></a>
 
-## Preprocessing
+## Preprocessing <a name = "preprocessing"></a>
 - Open up Kaggle Notebook or Google Colab.
 - Choose runtime with GPU support. (as the models are very large, it will be difficult to run it on your local machine and also without GPU.)
 - Install ptmodels in one cell.
@@ -85,12 +87,12 @@ pip install ptmodels
 ```
 - Run the cell by pressing shift + enter
 
-### Import Library
+### Import Library <a name = "import-library"></a>
 Import `PreTrainedModels` class from `ptmodels.Classifier` package. 
 ```bash
 from ptmodels.Classifier import PreTrainedModels
 ```
-### PreTrainedModels Class
+### PreTrainedModels Class <a name = "pretrainedmodels-class"></a>
 - PreTrainedModels class is the only class of this package. It's an easy-to-use class with some parameters. You can call the PreTrainedModels class without any arguments. That time default values will be set in the parametes. Or else you can provide your own arguments values.
 #### Arguments
 - **NUM_CLASSES** : Takes the number of classes for classification. Default value is set to **2**.
@@ -106,7 +108,7 @@ model = PreTrainedModels(NUM_CLASSES=10, BATCH_SIZE=32, EPOCHS=1, LEARNING_RATE=
 
 - You can also consuly my [Google Colab Notebook](https://colab.research.google.com/drive/19BJ0LAQrqTEZiMqRAXZDZH5dhgwQeRI_?usp=sharing)
 
-### Available Models
+### Available Models <a name = "available-models"></a>
 Following are the available models for `ptmodels` package:
 
 | Model	| Size (MB) | Top-1 Accuracy |	Top-5 Accuracy | Parameters	| Depth |	Time (ms) per inference step (CPU) | Time (ms) per inference step (GPU) |
@@ -149,7 +151,7 @@ Following are the available models for `ptmodels` package:
 
 - All these models are taken from Keras Application API. These models are used as image classification using pre-trained weights. Prediction, feature extraction, and fine-tuning can be done using these models.
 
-### Load Dataset
+### Load Dataset <a name = "load-dataset"></a>
 
 - You can use any image dataset available online or use your own image dataset.
 -  Load your dataset in the preffered way. 
@@ -168,7 +170,7 @@ from tensorflow.keras.datasets import cifar10
 - For that you can use `sklearn.model_selection.train_test_split()`. For that you can follow the guidelines from <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html">sklearn train_test_split()</a>
 
 
-### load_models() Method
+### load_models() Method <a name = "load-models-method"></a>
 - Load your models by using `load_models()` method from `ptmodels` package.
 
 #### Arguments:
@@ -254,7 +256,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/keras-applicatio
  ```
  
  
-### models_name() Method
+### models_name() Method <a name = "models-name-method"></a>
 - `models_name()` method will let you find out the loaded models names in your class object.
 - No arguments are needed for this  method. 
 
@@ -268,12 +270,12 @@ print(names)
 ```
 ['VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'MobileNet', 'MobileNetV2', 'DenseNet121', 'DenseNet169', 'EfficientNetV2B1', 'EfficientNetV2B2', 'EfficientNetV2B3', 'EfficientNetV2S', 'EfficientNetV2M', 'EfficientNetV2L', 'ConvNeXtTiny', 'ConvNeXtSmall', 'ConvNeXtBase', 'ConvNeXtLarge', 'ConvNeXtXLarge']
 ```
-## Classification
+## Classification <a name = "classification"></a>
 - Using `ptmodels` package you can easily train your dataset using all the pre-trained models or using any specific models. All the small tasks are done already. You just need to provide the dataset to train using this package. 
 - For image classification, we are going to use two methods.
     - fit() Method
     - train_specific_model() Method
-### fit() Method
+### fit() Method <a name = "fit-method"></a>
 - Using this method you can very easily train your dataset using all the pre-trained models.
 - That will take a lot of time.
 - So our suggestion is that, use a high GPU PC or use `Google Colab` Notebook or `Kaggle` Notebook and load GPU into runtime.
@@ -481,7 +483,7 @@ appended successfully
 21          0.855         0.829          0.829       0.829         0.829  
 22          0.863         0.831          0.831       0.831         0.831  
 ```
-### train_specific_model() Method
+### train_specific_model() Method <a name = "train-specific-model-method"></a>
 - You can train your dataset on a specific model using this method. 
 - You just have to specify the `model_name`.
 - The method will return the evaluation metrics of the trained model.
@@ -513,13 +515,13 @@ Saved model to disk
 313/313 [==============================] - 2s 7ms/step
 ```
 
-## Evaluation
+## Evaluation <a name = "evaluation"></a>
 - You can easily load the specific model and the weights from the disk and evaluate using test dataset.
 - You can evaluate the model using two simple methods as:
     - evaluate_saved_model() Method
     - predict_image_saved_model() Method.
 
-### evaluate_saved_model() Method
+### evaluate_saved_model() Method <a name = "evaluate-saved-model-method"></a>
 - This method simple tells you the accuracy of the saved model.
 #### Arguments:
 - **x_test** : x_test has the images for test dataset without labels.
@@ -534,7 +536,7 @@ Loaded model from disk
 accuracy: 53.04%
 ```
 
-### predict_image_saved_model() Method
+### predict_image_saved_model() Method <a name = "predict-image-saved-model-method"></a>
 
 #### Arguments
 - **image_path** : You have to provide the image path of your single image that you want to evaluate.
@@ -558,7 +560,7 @@ Loaded model from disk
 ```
 - You can use this prediction for further evaluation like you can use `argmax()` method to get the highest value and also you can map the value with label names.
 
-## Credits
+## Credits <a name = "credits"></a>
 
 This software uses the following open source packages:
 
@@ -570,11 +572,11 @@ This software uses the following open source packages:
 - Emojis are taken from [here](https://github.com/arvida/emoji-cheat-sheet.com)
 - [highlight.js](https://highlightjs.org/)
 
-## Related
+## Related <a name = "related"></a>
 
 [LazyPredict](https://github.com/shankarpandala/lazypredict) - Classification using basic models
 
-## Support
+## Support <a name = "support"></a>
 
 <a href="https://www.buymeacoffee.com/rafsunSheikh" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
@@ -584,14 +586,14 @@ This software uses the following open source packages:
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
-## You may also like...
+## You may also like... <a name = "you-may-also-like"></a>
 
 - [Signature Fraud Detection](https://github.com/rafsunsheikh/signatureFraud) - A Django app to detect signature fraud from Bank checks.
 - [AIST](https://github.com/rafsunsheikh/IDP_AIST) - Artificial Intelligence Surveillance Tower
 - [Parliament Bhaban](https://github.com/rafsunsheikh/openGL_project) - A fun OpenGL project for 2D animation.
 - [Mancala](https://github.com/rafsunsheikh/mancala_repo) - A simple AI Mancala game built in Python
 
-## License
+## License <a name = "license"></a>
 
 MIT
 
