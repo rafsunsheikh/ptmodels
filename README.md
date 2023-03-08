@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://rafsunsheikh.github.io/Web"><img src="https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/logo_hi.png" alt="ptmodels" width="200"></a>
+  <a href="https://rafsunsheikh.github.io/Web"><img src="https://github.com/rafsunsheikh/ptmodels/raw/master/image_sources/logo_hi.png" alt="ptmodels" width="200"></a>
   <br>
   ptmodels
   <br>
@@ -33,7 +33,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/evaluation_01.png)
+![screenshot](https://github.com/rafsunsheikh/ptmodels/raw/master/image_sources/evaluation_01.png)
 
 
 ## Table of Contents
@@ -74,6 +74,34 @@ pip install ptmodels
 ```
 
 ### From Sources <a name = "from-sources"></a>
+- To install a Python package from a source other than the PyPI repository, you can download and unpack the source distribution yourself, and then use its `setup.py` script to install the package in the user `site-packages` directory:
+- Set up your user environment
+- Use the `wget` command to download the distribution archive (for example, 0.1.0.tar.gz) from the source (for example, https://github.com/rafsunsheikh/ptmodels/archive/refs/tags/0.1.0.tar.gz); for example:
+```
+wget https://github.com/rafsunsheikh/ptmodels/archive/refs/tags/0.1.0.tar.gz
+```
+- Use `tar` to unpack the archive. For example:
+```
+tar ptmodels-0.1.0.tar.gz
+```
+The distribution should unpack into a similarly-named directory in your home directory (for example, ~/ptmodels-0.1.0).
+- Change (`cd`) to the new directory, and then, on the command line, enter:
+```
+python setup.py install --user
+```
+The `--user` option directs `setup.py` to install the package (for example, ptmodels) in the user `site-packages` directory for the running Python; for example:
+```
+~/.local/lib/pythonX.Y/site-packages/ptmodels
+```
+Python automatically searches this directory for modules, so prepending this path to the PYTHONPATH environmental variable is not necessary.
+
+If you omit the `--user` option, `setup.py` will try to install the package in the global `site-packages` directory (where you do not have the necessary permissions); as a result, the installation will fail.
+
+Alternatively, you can use the `--home` or `--prefix` option to install your package in a different location (where you have the necessary permissions); for example, to install your package in a subdirectory (for example, python-pkgs):
+- Within your home directory, enter:
+```
+python setup.py install --home=~/python-pkgs
+```
 
 
 ## How To Use <a name = "how-to-use"></a>
@@ -291,7 +319,7 @@ print(names)
 dataframe = model.fit(x_train, y_train, x_test, y_test)
 ```
 - This method also saves your return dataframe into `prediction.csv` file in your disk.
-![screenshot](https://github.com/rafsunsheikh/ptmodels/blob/master/image_sources/evaluation_02.png)
+![screenshot](https://github.com/rafsunsheikh/ptmodels/raw/master/image_sources/evaluation_02.png)
 ##### Output:
 ```bash
 
