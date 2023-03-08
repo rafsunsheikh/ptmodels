@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <a href="#table-of-content">Table of Contents</a> •
+  <a href="#table-of-content">Table-of-Contents</a> •
   <a href="#installation">Installation</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#classification">Classification</a> •
@@ -39,23 +39,23 @@
 ## Table of Contents
 
 - [Installation](##installation)
-    - [Stable Release](##stable-release)
-    - [From Sources](##from-sources)
+    - [Stable Release](###stable-release)
+    - [From Sources](###from-sources)
 - [How to Use](##How-to-use)
     - [Preprocessing](##preprocessing) 
-        - [Import Library](##import)
-        - [PreTrainedModels Class](##pretrainedmodels-class)
-        - [Available Models](##available-models)
-        - [Load Dataset](##load-dataset)
-        - [load_models() Method](##load-models-method)
-        - [models_name() Method](##models-name-method)
+        - [Import Library](###import)
+        - [PreTrainedModels Class](###pretrainedmodels-class)
+        - [Available Models](###available-models)
+        - [Load Dataset](###load-dataset)
+        - [load_models() Method](###load-models-method)
+        - [models_name() Method](###models-name-method)
     - [Classification](##classification)
-        - [fit() Method](##fit-method)  
-        - [train_specific_model() Method](##train-specific-model-method)
+        - [fit() Method](###fit-method)  
+        - [train_specific_model() Method](###train-specific-model-method)
     - [Evaluation](##evaluation)
-        - [evaluate_saved_model() Method](##evaluate-saved-model-method)
-        - [predict_image_saved_model() Method](##predict-image-saved-model-method)
-- [Credits](#credits)
+        - [evaluate_saved_model() Method](###evaluate-saved-model-method)
+        - [predict_image_saved_model() Method](###predict-image-saved-model-method)
+- [Credits](##credits)
 - [Related](##related)
 - [Support](##support)
 - [You May Also Like](##you-may-also-like)
