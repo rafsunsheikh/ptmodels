@@ -533,7 +533,7 @@ appended successfully
 - `pandas.dataframe` that holds the evaluation metrics of the specific model on the image dataset.
 #### Example: 
 ```
-df_VGG16 = model.train_specific_model( x_train, y_train, x_test, y_test, model_name, num_classes=10, batch_size=32, epochs=20, learning_rate=1e-4, momentum=0.9, SAVE_MODEL = True)
+df_VGG16 = model.train_specific_model( x_train, y_train, x_test, y_test, model_name='VGG16', num_classes=10, batch_size=32, epochs=20, learning_rate=1e-4, momentum=0.9, SAVE_MODEL = True)
 ```
 ##### Output:
 ```
